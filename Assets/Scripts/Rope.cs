@@ -15,13 +15,13 @@ public class Rope : MonoBehaviour
     void Start()
     {
         _lineRenderer = GetComponent<LineRenderer>();
-        //_lineRenderer.material = new Material(Shader.Find("Unlit/Color"));
+        _lineRenderer.enabled = true;
+        _lineRenderer.SetPosition(0, _pivot.transform.position);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //_lineRenderer.SetPosition(0, _pivot.transform.position);
         _lineRenderer.SetPosition(1, _coin.transform.position);
     }
 }

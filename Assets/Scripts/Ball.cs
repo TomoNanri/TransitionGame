@@ -15,15 +15,14 @@ public class Ball : MonoBehaviour
     private Vector3 _initialPosition;
     private bool _isNewPitching;
     private float _timer;
-    private Transform _target;
 
     // Start is called before the first frame update
     void Start()
     {
         _initialPosition = transform.position;
         _rigidbody = GetComponent<Rigidbody>();
-        _isNewPitching = false;
-        _target = GameObject.Find("Target").transform;
+        _isNewPitching = true;
+        _timer = 0.03f;
     }
 
     // Update is called once per frame
@@ -31,16 +30,7 @@ public class Ball : MonoBehaviour
     {
         _rigidbody.velocity += new Vector3(0, _gravity, 0) * Time.deltaTime;
         _timer -= Time.deltaTime;
-     
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            transform.position = _initialPosition;
-            transform.LookAt(_target);
-            _rigidbody.AddForce(_initialVelocity, ForceMode.VelocityChange);
-            _isNewPitching = true;
-            _timer = 0.03f;
-            return;
-        }
+
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             var f = Vector3.right * _factor;
@@ -74,7 +64,6 @@ public class Ball : MonoBehaviour
         {
             if(collision.transform.tag == "BackBoard")
             {
-                transform.LookAt(_target);
             }
         }
     }
