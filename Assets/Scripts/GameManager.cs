@@ -7,6 +7,11 @@ using UnityEngine.SceneManagement;
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
     public enum GameStateType { Intro, Instruction, InGame}
+    public GameStateType GameState => _gameState;
+    public int StartLevel => _startLevel;
+
+    [SerializeField]
+    private int _startLevel = 0;
     protected override bool dontDestroyOnLoad { get { return true; } }
 
     private GameStateType _gameState = GameStateType.Intro;
@@ -55,10 +60,5 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private void EndOfOpeningEventHandler()
     {
         _isEndOfOpening = true;
-    }
-    public void OnExitButton()
-    {
-        Debug.Log($"[{name}] Exit Game!");
-        Application.Quit();
     }
 }

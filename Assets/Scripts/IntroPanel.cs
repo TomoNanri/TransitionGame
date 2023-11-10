@@ -14,7 +14,7 @@ public class IntroPanel : MonoBehaviour
     private float _msgAppearInterval = 3f;
     [SerializeField]
     GameObject _fire;
-    [SerializeField]
+
     AudioSource _soundSource;
     Transform _titlePanel;
     private List<TextMeshProUGUI> _textLines = new List<TextMeshProUGUI>();
