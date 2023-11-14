@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackBoard : MonoBehaviour
+public class Catcher : MonoBehaviour
 {
     private AudioSource _audioSource;
 
@@ -19,7 +19,7 @@ public class BackBoard : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Ball")
+        if(other.tag == "Ball")
         {
             _audioSource.Play();
             Destroy(other.gameObject);
