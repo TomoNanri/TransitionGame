@@ -21,9 +21,16 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     // Start is called before the first frame update
     void Start()
     {
-        _intro = GameObject.FindAnyObjectByType<IntroPanel>();
-        _isEndOfOpening = false;
-        _intro.EndOfOpening += EndOfOpeningEventHandler;
+        if (SceneManager.GetActiveScene().name == "Intro")
+        {
+            _intro = GameObject.FindAnyObjectByType<IntroPanel>();
+            _isEndOfOpening = false;
+            _intro.EndOfOpening += EndOfOpeningEventHandler;
+        }
+        else if(SceneManager.GetActiveScene().name == "InGame")
+        {
+            _gameState = GameStateType.InGame;
+        }
     }
 
     // Update is called once per frame
@@ -36,7 +43,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 {
                     if (Input.anyKeyDown)
                     {
-                        Debug.Log($"[{name}] Start Loading Instruction Scene!");
                         _gameState = GameStateType.Instruction;
                         SceneManager.LoadScene("Instruction");
                     }
@@ -46,7 +52,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             case GameStateType.Instruction:
                 if (Input.anyKeyDown)
                 {
-                    Debug.Log($"[{name}] Start Loading InGame Scene!");
                     _gameState = GameStateType.InGame;
                     SceneManager.LoadScene("InGame");
                 }
@@ -55,7 +60,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             case GameStateType.InGame:
                 break;
         }
-
     }
     private void EndOfOpeningEventHandler()
     {

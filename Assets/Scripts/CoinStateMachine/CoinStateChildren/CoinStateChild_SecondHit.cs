@@ -5,6 +5,7 @@ using UnityEngine;
 public class CoinStateChild_SecondHit : AbstractStateChild
 {
     private Coin _coin;
+    private Color _originColor;
     private bool _isHit;
     private float _timer;
     public override void Initialize(int stateType)
@@ -16,7 +17,8 @@ public class CoinStateChild_SecondHit : AbstractStateChild
     public override void OnEnter()
     {
         _timer = 30f;
-        _coin.SetColor(new Color(255, 255, 255));
+        Debug.Log($"[{name} Coin color={_coin.GetColor()}]");
+        _coin.SetColor(new Color(1f, 1f, 1f));
         _isHit = false;
     }
     public override void OnExit()

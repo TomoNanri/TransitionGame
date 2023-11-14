@@ -18,12 +18,15 @@ public class Pendulum : MonoBehaviour
     // Ž…‚É‚©‚©‚é’£—Í
     private Vector3 _constraint;
 
+    AudioSource _audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
         _stringLength = Vector3.Distance(transform.position, _pivot.transform.position);
         _gravity = Physics.gravity;
         _velocity = Vector3.zero;
+        _audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -48,5 +51,12 @@ public class Pendulum : MonoBehaviour
         // Delta t Žž‚Ì‚¨‚à‚è‚ÌˆÊ’u‚Æ‘¬“x‚Í
         _velocity += (_gravity + _constraint) * Time.deltaTime;
         transform.position += _velocity * Time.deltaTime;
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision != null && collision.transform.tag == "Ball") 
+        {
+            _audioSource.Play();
+        }
     }
 }

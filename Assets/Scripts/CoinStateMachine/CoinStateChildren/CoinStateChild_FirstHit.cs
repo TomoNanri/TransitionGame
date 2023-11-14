@@ -16,7 +16,8 @@ public class CoinStateChild_FirstHit : AbstractStateChild
     public override void OnEnter()
     {
         _timer = 30f;
-        _coin.SetColor(new Color(255, 0, 0));
+        Debug.Log($"[{name} Coin color={_coin.GetColor()}]");
+        _coin.SetColor(new Color(0.9f, 0.9f, 0.65f));
         _isHit = false;
     }
     public override void OnExit()

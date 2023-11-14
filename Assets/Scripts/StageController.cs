@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+using UnityEngine.UI;
+using TMPro;
 
 public class StageController : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class StageController : MonoBehaviour
     private bool _isStageCleared;
     private bool _isStageComplete;
 
+    private TextMeshProUGUI _levelText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +32,7 @@ public class StageController : MonoBehaviour
         // Game LevelÇÃèâä˙âª
         _currentLevel = _gameManager.StartLevel;
         _isStageCleared = true;
+        _levelText = GameObject.Find("Canvas/LevelText").GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -40,15 +44,18 @@ public class StageController : MonoBehaviour
             if (_isStageCleared == true)
             {
                 _isStageComplete = false;
+                _levelText.SetText($"Level {_currentLevel}");
                 _target = Instantiate(LevelData[_currentLevel].TargetPrefab, _targetPos, Quaternion.identity);
                 var coin = _target.transform.Find("Coin").GetComponent<Coin>();
                 coin.BrokenAction += TargetBrokenActionHandler;
                 if (LevelData[_currentLevel].Obstacle1 != null)
                 {
+                    _obstacle1Pos = LevelData[_currentLevel].Obs1Position;
                     _obstacle1 = Instantiate(LevelData[_currentLevel].Obstacle1, _obstacle1Pos, Quaternion.identity);
                 }
                 if (LevelData[_currentLevel].Obstacle2 != null)
                 {
+                    _obstacle2Pos = LevelData[_currentLevel].Obs2Position;
                     _obstacle2 = Instantiate(LevelData[_currentLevel].Obstacle2, _obstacle2Pos, Quaternion.identity);
                 }
                 _isStageCleared = false;

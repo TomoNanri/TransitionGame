@@ -64,7 +64,7 @@ public class Coin : MonoBehaviour
     public void Explosion()
     {
         _audio.PlayOneShot(_explosionSE);
-        var pos = transform.position;
+        var pos = transform.position + new Vector3(0, 2f, -2f);
         SetColor(Color.clear);
         var eo = Instantiate(_explosionFire, pos, Quaternion.identity);
         Destroy(eo, 2f);

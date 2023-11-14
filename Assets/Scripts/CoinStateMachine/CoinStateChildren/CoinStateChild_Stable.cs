@@ -13,6 +13,7 @@ public class CoinStateChild_Stable : AbstractStateChild
         _coin = transform.parent.GetComponent<Coin>();
         _coin.HitAction += HitActionHnadler;
         _originColor = _coin.GetColor();
+        Debug.Log($"[{name}] Coin color={_originColor}");
     }
     public override void OnEnter()
     {
