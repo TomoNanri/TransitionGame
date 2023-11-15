@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
-    public enum GameStateType { Intro, Instruction, InGame}
+    public enum GameStateType { Intro, Instruction, InGame, GameOver}
     public GameStateType GameState => _gameState;
     public int StartLevel => _startLevel;
+    public bool IsEndingStarted => _isEndingStarted;
 
     [SerializeField]
     private int _startLevel = 0;
@@ -17,6 +19,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private GameStateType _gameState = GameStateType.Intro;
     private IntroPanel _intro;
     private bool _isEndOfOpening = false;
+    private bool _isEndingStarted = false;
+    private GameObject _endingPanel = null;
 
     // Start is called before the first frame update
     void Start()
@@ -58,11 +62,30 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 break;
 
             case GameStateType.InGame:
+                if(_endingPanel == null)
+                {
+                    _endingPanel = GameObject.Find("Canvas/EndingPanel");
+                    _endingPanel.SetActive(false);
+                }
+                break;
+
+            case GameStateType.GameOver:
+                if (!_isEndingStarted)
+                {
+                    _isEndingStarted= true;
+                    _endingPanel.SetActive(true);
+                }
                 break;
         }
     }
     private void EndOfOpeningEventHandler()
     {
         _isEndOfOpening = true;
+    }
+
+    public void OnGameOver()
+    {
+        _gameState = GameStateType.GameOver;
+        _isEndingStarted = false;
     }
 }

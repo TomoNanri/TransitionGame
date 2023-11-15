@@ -85,7 +85,8 @@ public class StageController : MonoBehaviour
         _currentLevel++;
         if(_currentLevel >= LevelData.Count)
         {
-            _currentLevel = 0;
+            //_currentLevel = 0;
+            _gameManager.OnGameOver();
         }
     }
 }

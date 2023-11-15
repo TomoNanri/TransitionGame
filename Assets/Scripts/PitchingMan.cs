@@ -10,17 +10,19 @@ public class PitchingMan : MonoBehaviour
     private Vector3 _initialVelocity = new Vector3(0, 0, 10);
 
     private GameObject _ball;
+    private GameManager _gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
         _ball = null;
+        _gameManager = GameManager.Instance;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if( _gameManager.GameState == GameManager.GameStateType.InGame && Input.GetKeyDown(KeyCode.Space))
         {
             if(_ball != null)
             {
