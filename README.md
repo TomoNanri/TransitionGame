@@ -27,7 +27,7 @@
 
 ボールの変化とターゲットヒットの様子
 
-![ゲーム中動画](./ScreenShot/movie_2023-11-15_006.mp4)
+https://github.com/TomoNanri/TransitionGame/assets/131641585/3d58a576-c7c5-4d85-9b12-ea129b449b13
 
 # ・ゲームの概要
 
