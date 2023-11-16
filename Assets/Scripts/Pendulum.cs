@@ -23,7 +23,7 @@ public class Pendulum : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _stringLength = Vector3.Distance(transform.position, _pivot.transform.position);
+        _stringLength = (Vector3.Distance(transform.position, _pivot.transform.position));
         _gravity = Physics.gravity;
         _velocity = Vector3.zero;
         _audioSource = GetComponent<AudioSource>();
@@ -46,10 +46,10 @@ public class Pendulum : MonoBehaviour
 
         //Ž…‚ÉŠ|‚©‚é’£—Í fc ‚ð _constraint ‚Æ‚·‚é‚Æ
 
-        _constraint = -(_velocity.sqrMagnitude + Vector3.Dot(_position, _gravity)) / _stringLength * _position.normalized;
+        _constraint = (_velocity.sqrMagnitude + Vector3.Dot(_position, _gravity)) / _stringLength * _position.normalized;
 
         // Delta t Žž‚Ì‚¨‚à‚è‚ÌˆÊ’u‚Æ‘¬“x‚Í
-        _velocity += (_gravity + _constraint) * Time.deltaTime;
+        _velocity += (_gravity - _constraint) * Time.deltaTime;
         transform.position += _velocity * Time.deltaTime;
     }
     private void OnCollisionEnter(Collision collision)
