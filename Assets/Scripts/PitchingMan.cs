@@ -29,7 +29,6 @@ public class PitchingMan : MonoBehaviour
                 Destroy(_ball);
             }
             _ball = Instantiate(_prefab, transform.position, Quaternion.identity);
-            //_ball.transform.position = Vector3.zero;
             var rb = _ball.GetComponent<Rigidbody>();
             rb.AddForce(_initialVelocity, ForceMode.VelocityChange);
         }

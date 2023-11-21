@@ -48,8 +48,10 @@ public class Pendulum : MonoBehaviour
 
         _constraint = (_velocity.sqrMagnitude + Vector3.Dot(_position, _gravity)) / _stringLength * _position.normalized;
 
-        // Delta t 時のおもりの位置と速度は
+        // Delta t 時のおもりの速度
         _velocity += (_gravity - _constraint) * Time.deltaTime;
+
+        // Delta t 時のおもりの位置
         transform.position += _velocity * Time.deltaTime;
     }
     private void OnCollisionEnter(Collision collision)
