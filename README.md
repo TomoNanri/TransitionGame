@@ -29,6 +29,10 @@
 
 https://github.com/TomoNanri/TransitionGame/assets/131641585/3d58a576-c7c5-4d85-9b12-ea129b449b13
 
+## ・WebGL版の実行
+
+https://bobcatnan.net/Products/Transition/
+
 # ・ゲームの概要
 
 １．サマリー
