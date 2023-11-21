@@ -44,7 +44,7 @@ public class StageController : MonoBehaviour
             if (_isStageCleared == true)
             {
                 _isStageComplete = false;
-                _levelText.SetText($"Level {_currentLevel}");
+                _levelText.SetText($"“ÁŒP {_currentLevel+1} “ú–Ú");
                 _target = Instantiate(LevelData[_currentLevel].TargetPrefab, _targetPos, Quaternion.identity);
                 var coin = _target.transform.Find("Coin").GetComponent<Coin>();
                 coin.BrokenAction += TargetBrokenActionHandler;
@@ -85,7 +85,6 @@ public class StageController : MonoBehaviour
         _currentLevel++;
         if(_currentLevel >= LevelData.Count)
         {
-            //_currentLevel = 0;
             _gameManager.OnGameOver();
         }
     }
