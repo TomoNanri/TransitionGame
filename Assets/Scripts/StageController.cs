@@ -9,17 +9,14 @@ public class StageController : MonoBehaviour
     public List<LevelDataAsset> LevelData = new List<LevelDataAsset>();
 
     [SerializeField] private GameObject _target;
-    [SerializeField] private GameObject _obstacle1;
-    [SerializeField] private GameObject _obstacle2;
 
     [SerializeField] private Vector3 _targetPos = new Vector3(0f, 1.8f, 18f);
-    [SerializeField] private Vector3 _obstacle1Pos = new Vector3(0f, 4.5f, 15f);
-    [SerializeField] private Vector3 _obstacle2Pos = new Vector3(0f, 6f, 12f);
+    [SerializeField] private List<GameObject> _obstacles = new List<GameObject>();
 
     private GameManager _gameManager;
     [SerializeField] private int _currentLevel;
 
-    private bool _isStageCleared;
+    private bool _isStageClean;
     private bool _isStageComplete;
 
     private TextMeshProUGUI _levelText;
@@ -31,7 +28,7 @@ public class StageController : MonoBehaviour
 
         // Game LevelÇÃèâä˙âª
         _currentLevel = _gameManager.StartLevel;
-        _isStageCleared = true;
+        _isStageClean = true;
         _levelText = GameObject.Find("Canvas/LevelText").GetComponent<TextMeshProUGUI>();
     }
 
@@ -41,24 +38,20 @@ public class StageController : MonoBehaviour
         // InGameÇ…Ç»Ç¡ÇΩÇÁìIÇê∂ê¨Ç∑ÇÈ
         if (_gameManager.GameState == GameManager.GameStateType.InGame)
         {
-            if (_isStageCleared == true)
+            if (_isStageClean == true)
             {
                 _isStageComplete = false;
                 _levelText.SetText($"ì¡åP {_currentLevel+1} ì˙ñ⁄");
                 _target = Instantiate(LevelData[_currentLevel].TargetPrefab, _targetPos, Quaternion.identity);
                 var coin = _target.transform.Find("Coin").GetComponent<Coin>();
                 coin.BrokenAction += TargetBrokenActionHandler;
-                if (LevelData[_currentLevel].Obstacle1 != null)
+                foreach(Obstacle o in LevelData[_currentLevel].Obstacles)
                 {
-                    _obstacle1Pos = LevelData[_currentLevel].Obs1Position;
-                    _obstacle1 = Instantiate(LevelData[_currentLevel].Obstacle1, _obstacle1Pos, Quaternion.identity);
+                    Vector3 pos = o.Position;
+                    var obs = Instantiate(o.ObstaclePrefabs, pos, Quaternion.identity);
+                    _obstacles.Add(obs);
                 }
-                if (LevelData[_currentLevel].Obstacle2 != null)
-                {
-                    _obstacle2Pos = LevelData[_currentLevel].Obs2Position;
-                    _obstacle2 = Instantiate(LevelData[_currentLevel].Obstacle2, _obstacle2Pos, Quaternion.identity);
-                }
-                _isStageCleared = false;
+                _isStageClean = false;
             }
             if(_isStageComplete == true)
             {
@@ -67,15 +60,12 @@ public class StageController : MonoBehaviour
                 {
                     Destroy( _target );
                 }
-                if(_obstacle1 != null)
+                foreach(GameObject o in _obstacles)
                 {
-                    Destroy( _obstacle1 );
+                    Destroy(o);
                 }
-                if(_obstacle2 != null)
-                {
-                    Destroy( _obstacle2 );
-                }
-                _isStageCleared = true ;
+                _obstacles.Clear();
+                _isStageClean = true ;
             }
         }
     }

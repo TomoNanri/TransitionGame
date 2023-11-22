@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f4fc574872bd4787fa08470e2a852, type: 3}
   m_Name: Level6
   m_EditorClassIdentifier: 
-  _stageLevel: 6
-  _targetPrefab: {fileID: 4081722912482996802, guid: 24f25fcc1a480b64c95a5e8fcb9b27b9, type: 3}
-  _obstacle1: {fileID: 0}
-  _obstacle2: {fileID: 0}
+  StageLevel: 6
+  TargetPrefab: {fileID: 4081722912482996802, guid: 24f25fcc1a480b64c95a5e8fcb9b27b9, type: 3}
+  Obstacles: []

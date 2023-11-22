@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f4fc574872bd4787fa08470e2a852, type: 3}
   m_Name: Level7
   m_EditorClassIdentifier: 
-  _stageLevel: 0
-  _targetPrefab: {fileID: 4081722912482996802, guid: 24f25fcc1a480b64c95a5e8fcb9b27b9, type: 3}
-  _obstacle1: {fileID: 1227045844255132947, guid: 863b18133321aa442b5563b0f75d19f9, type: 3}
-  _obs1Position: {x: 0, y: 4.55, z: 15}
-  _obstacle2: {fileID: 0}
-  _obs2Position: {x: 0, y: 5.8, z: 12}
+  StageLevel: 7
+  TargetPrefab: {fileID: 4081722912482996802, guid: 24f25fcc1a480b64c95a5e8fcb9b27b9, type: 3}
+  Obstacles:
+  - ObstaclePrefabs: {fileID: 6298146374365313368, guid: 213ca88a337a42b49955b6b8243e493e, type: 3}
+    Position: {x: 0, y: 5.3, z: 15}
