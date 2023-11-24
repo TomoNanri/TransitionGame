@@ -11,7 +11,7 @@ public class StageController : MonoBehaviour
     [SerializeField] private GameObject _target;
 
     [SerializeField] private Vector3 _targetPos = new Vector3(0f, 1.8f, 18f);
-    [SerializeField] private List<GameObject> _obstacles = new List<GameObject>();
+    //[SerializeField] private List<GameObject> _obstacles = new List<GameObject>();
 
     private GameManager _gameManager;
     [SerializeField] private int _currentLevel;
@@ -20,6 +20,7 @@ public class StageController : MonoBehaviour
     private bool _isStageComplete;
 
     private TextMeshProUGUI _levelText;
+    private ObstacleFactory _obstacleFactory;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,9 @@ public class StageController : MonoBehaviour
         _currentLevel = _gameManager.StartLevel;
         _isStageClean = true;
         _levelText = GameObject.Find("Canvas/LevelText").GetComponent<TextMeshProUGUI>();
+
+        // 障害物のファクトリー生成
+        _obstacleFactory = new ObstacleFactory();
     }
 
     // Update is called once per frame
@@ -45,12 +49,13 @@ public class StageController : MonoBehaviour
                 _target = Instantiate(LevelData[_currentLevel].TargetPrefab, _targetPos, Quaternion.identity);
                 var coin = _target.transform.Find("Coin").GetComponent<Coin>();
                 coin.BrokenAction += TargetBrokenActionHandler;
-                foreach(Obstacle o in LevelData[_currentLevel].Obstacles)
-                {
-                    Vector3 pos = o.Position;
-                    var obs = Instantiate(o.ObstaclePrefabs, pos, Quaternion.identity);
-                    _obstacles.Add(obs);
-                }
+                //foreach(Obstacle o in LevelData[_currentLevel].Obstacles)
+                //{
+                //    Vector3 pos = o.Position;
+                //    var obs = Instantiate(o.ObstaclePrefabs, pos, Quaternion.identity);
+                //    _obstacles.Add(obs);
+                //}
+                _obstacleFactory.Create(transform, LevelData[_currentLevel]);
                 _isStageClean = false;
             }
             if(_isStageComplete == true)
@@ -60,11 +65,12 @@ public class StageController : MonoBehaviour
                 {
                     Destroy( _target );
                 }
-                foreach(GameObject o in _obstacles)
-                {
-                    Destroy(o);
-                }
-                _obstacles.Clear();
+                //foreach(GameObject o in _obstacles)
+                //{
+                //    Destroy(o);
+                //}
+                //_obstacles.Clear();
+                _obstacleFactory.DestroyAll();
                 _isStageClean = true ;
             }
         }

@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Pendulum : MonoBehaviour
+public class Pendulum : Product
 {
     // éxì_ÇÃç¿ïW
     [SerializeField]
