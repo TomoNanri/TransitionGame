@@ -13,6 +13,7 @@ public class LevelDataAsset : ScriptableObject
 [Serializable]
 public struct Obstacle
 {
-    public GameObject ObstaclePrefabs;
+    public enum ObstacleType { ObstacleA=0, ObstacleB=1}
+    public ObstacleType Type;
     public Vector3 Position;
 }

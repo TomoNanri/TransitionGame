@@ -15,7 +15,7 @@ MonoBehaviour:
   StageLevel: 5
   TargetPrefab: {fileID: 7447724838175405997, guid: f83dd8b4c9b74dd4aa12044e45e52efd, type: 3}
   Obstacles:
-  - ObstaclePrefabs: {fileID: 1227045844255132947, guid: 863b18133321aa442b5563b0f75d19f9, type: 3}
+  - Type: 0
     Position: {x: 0, y: 4.3, z: 17}
-  - ObstaclePrefabs: {fileID: 6298146374365313368, guid: 213ca88a337a42b49955b6b8243e493e, type: 3}
+  - Type: 1
     Position: {x: 0, y: 5.3, z: 15.5}
