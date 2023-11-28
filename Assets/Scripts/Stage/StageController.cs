@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class StageController : MonoBehaviour
 {
@@ -11,7 +12,6 @@ public class StageController : MonoBehaviour
     [SerializeField] private GameObject _target;
 
     [SerializeField] private Vector3 _targetPos = new Vector3(0f, 1.8f, 18f);
-    //[SerializeField] private List<GameObject> _obstacles = new List<GameObject>();
 
     private GameManager _gameManager;
     [SerializeField] private int _currentLevel;
@@ -20,7 +20,9 @@ public class StageController : MonoBehaviour
     private bool _isStageComplete;
 
     private TextMeshProUGUI _levelText;
-    private ObstacleFactory _obstacleFactory;
+    private ObstacleAFactory _factoryA;
+    private ObstacleBFactory _factoryB;
+    private List<Product> _products = new List<Product>();
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +35,8 @@ public class StageController : MonoBehaviour
         _levelText = GameObject.Find("Canvas/LevelText").GetComponent<TextMeshProUGUI>();
 
         // 障害物のファクトリー生成
-        _obstacleFactory = new ObstacleFactory();
+        _factoryA = new ObstacleAFactory();
+        _factoryB = new ObstacleBFactory();
     }
 
     // Update is called once per frame
@@ -49,13 +52,23 @@ public class StageController : MonoBehaviour
                 _target = Instantiate(LevelData[_currentLevel].TargetPrefab, _targetPos, Quaternion.identity);
                 var coin = _target.transform.Find("Coin").GetComponent<Coin>();
                 coin.BrokenAction += TargetBrokenActionHandler;
-                //foreach(Obstacle o in LevelData[_currentLevel].Obstacles)
-                //{
-                //    Vector3 pos = o.Position;
-                //    var obs = Instantiate(o.ObstaclePrefabs, pos, Quaternion.identity);
-                //    _obstacles.Add(obs);
-                //}
-                _obstacleFactory.Create(transform, LevelData[_currentLevel]);
+
+                foreach(Obstacle o in LevelData[_currentLevel].Obstacles)
+                {
+                    switch (o.Type)
+                    {
+                        case Obstacle.ObstacleType.ObstacleA:
+                            _products.Add(_factoryA.Create(transform, o.Position, $"{_currentLevel}"));
+                            break;
+
+                        case Obstacle.ObstacleType.ObstacleB:
+                            _products.Add(_factoryB.Create(transform, o.Position, $"{_currentLevel}"));
+                            break;
+                        default:
+                            Debug.LogError($"[{name}] Illegal Obstacle Type!");
+                            break;
+                    }
+                }
                 _isStageClean = false;
             }
             if(_isStageComplete == true)
@@ -65,12 +78,22 @@ public class StageController : MonoBehaviour
                 {
                     Destroy( _target );
                 }
-                //foreach(GameObject o in _obstacles)
-                //{
-                //    Destroy(o);
-                //}
-                //_obstacles.Clear();
-                _obstacleFactory.DestroyAll();
+                foreach (Product p in _products)
+                {
+                    if (p is ObstacleA)
+                    {
+                        _factoryA.Delete(p);
+                    }
+                    else if(p is ObstacleB)
+                    {
+                        _factoryB.Delete(p);
+                    }
+                    else
+                    {
+                        Debug.LogError($"[{name}] Illegal Obstacle Type!");
+                    }
+                }
+                _products.Clear();
                 _isStageClean = true ;
             }
         }

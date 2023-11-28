@@ -1,20 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class Factory
 {
-    protected List<GameObject> _products;
-    public void Create(Transform parent, LevelDataAsset levelData)
+    public Product Create(Transform parent, Vector3 position, string description)
     {
-        CreateProduct(parent, levelData);
-        return;
+        Product p = CreateProduct(parent, position, description);
+        return p;
     }
-    public void DestroyAll()
+    public void Delete(Product p)
     {
-        DestroyAllProduct();
+        DeleteProduct(p);
     }
-    protected abstract void CreateProduct(Transform parent, LevelDataAsset levelData);
-    protected abstract void DestroyAllProduct();
+    protected abstract Product CreateProduct(Transform parent, Vector3 position, string description);
+    protected abstract void DeleteProduct(Product p);
 }
