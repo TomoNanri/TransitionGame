@@ -179,7 +179,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 78e4312a69e927349906cb0a89d40733, type: 2}
   _target: {fileID: 0}
   _targetPos: {x: 0, y: 1.8, z: 18}
-  _obstacles: []
   _currentLevel: 0
 --- !u!850595691 &304233458
 LightingSettings:
