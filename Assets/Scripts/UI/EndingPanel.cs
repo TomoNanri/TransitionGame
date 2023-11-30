@@ -8,9 +8,9 @@ using UnityEngine.UI;
 
 public class EndingPanel : MonoBehaviour
 {
-    [SerializeField] float _LineAppearInterval = 4.0f;
+    [SerializeField] float _LineAppearInterval = 3.0f;
     [SerializeField] int _moveCount = 1750;
-    [SerializeField] float _volume = 0.4f;
+    [SerializeField] float _volume = 0.3f;
 
     private GameManager _gM;
     private bool _isEndRollActive = false;
@@ -57,7 +57,7 @@ public class EndingPanel : MonoBehaviour
             yield return new WaitForSeconds(sec);
             go.SetActive(true);
         }
-        Vector3 deltaPos = new Vector3(0, 2, 0); 
+        Vector3 deltaPos = new Vector3(0, 1, 0); 
         for(int i=0;i<count; i++)
         {
             yield return new WaitForEndOfFrame();
